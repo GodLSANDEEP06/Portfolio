@@ -1,15 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio of Sandeep Singh – Web Developer</title>
-  <meta name="description" content="I'm Sandeep Singh, a passionate web developer building responsive and creative websites. Check out my portfolio and CV builder tool.">
-  <meta name="keywords" content="Sandeep Singh, portfolio, web developer, CV builder, JavaScript, HTML, CSS">
-  <meta name="author" content="Sandeep Singh">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portfolio of Sandeep Singh – Web Developer</title>
+<meta content="I'm Sandeep Singh, a passionate web developer building responsive and creative websites. Check out my portfolio and CV builder tool." name="description"/>
+<meta content="Sandeep Singh, portfolio, web developer, CV builder, JavaScript, HTML, CSS" name="keywords"/>
+<meta content="Sandeep Singh" name="author"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -91,8 +91,7 @@
       color: #4fc3f7;
     }
   </style>
-
-  <script>
+<script>
     async function correctGrammar(text) {
       return text.replace(/\bteh\b/g, "the").replace(/\bi am\b/gi, "I am");
     }
@@ -140,72 +139,89 @@
       container.appendChild(div);
     }
   </script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/><style>
+.dark-mode {
+  background-color: #121212 !important;
+  color: white !important;
+}
+.dark-mode section, .dark-mode header, .dark-mode footer {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+#darkModeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 999;
+}
+</style><script>
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+}
+</script></head>
 <body>
-
-<header>
-  <h1>Hi, Welcome to My Portfolio.</h1>
-  <p>Web Developer | Designer | Coder</p>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<button id="darkModeToggle" onclick="toggleDarkMode()">🌙 Dark Mode</button><header>
+<h1>Hi, Welcome to My Portfolio.</h1>
+<p>Web Developer | Designer | Coder</p>
+<nav>
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</nav>
 </header>
-
-<section id="about">
-  <h2>About Me</h2>
-  <p>I'm a passionate web developer skilled in HTML, CSS, and JavaScript.  
+<section data-aos="fade-up" id="about">
+<h2>About Me</h2>
+<p>I'm a passionate web developer skilled in HTML, CSS, and JavaScript.  
   I enjoy creating responsive, user-friendly websites and learning new technologies.</p>
 </section>
-
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="projects-container">
-    <div class="project-card">
-      <h3>CV Builder Tool</h3>
-      <form class="cv-form" onsubmit="generatePDF(event)">
-        <input type="text" id="name" placeholder="Full Name" required>
-        <input type="file" id="profileImage" accept="image/*">
-        <input type="text" id="father" placeholder="Father's Name" required>
-        <input type="text" id="mother" placeholder="Mother's Name" required>
-        <input type="text" id="profession" placeholder="Profession/Sector" required>
-        <input type="text" id="qualification" placeholder="Highest Qualification" required>
-        <input type="text" id="place" placeholder="Place" required>
-        <input type="text" id="address" placeholder="Address" required>
-        <input type="text" id="city" placeholder="City" required>
-        <input type="text" id="state" placeholder="State" required>
-        <input type="text" id="country" placeholder="Country" required>
-        <input type="text" id="class10roll" placeholder="Class 10 Roll No." required>
-        <input type="text" id="class10stream" placeholder="Class 10 Stream/Subjects" required>
-        <input type="text" id="class12roll" placeholder="Class 12 Roll No." required>
-        <input type="text" id="class12stream" placeholder="Class 12 Stream/Subjects" required>
-        <div id="experienceContainer">
-          <div class="experience-group">
-            <input type="text" placeholder="Experience Sector" class="exp-sector">
-            <input type="text" placeholder="Duration (Years/Months)" class="exp-duration">
-            <textarea placeholder="Details" class="exp-details"></textarea>
-          </div>
-        </div>
-        <button type="button" onclick="addExperience()">+ Add Experience</button>
-        <textarea id="activities" placeholder="Extra Activities (Optional)"></textarea>
-        <button type="submit">Download CV as PDF</button>
-      </form>
-    </div>
-  </div>
+<section data-aos="fade-up" id="projects">
+<h2>Projects</h2>
+<div class="projects-container">
+<div class="project-card">
+<h3>CV Builder Tool</h3>
+<form class="cv-form" onsubmit="generatePDF(event)">
+<input id="name" placeholder="Full Name" required="" type="text"/>
+<input accept="image/*" id="profileImage" type="file"/>
+<input id="father" placeholder="Father's Name" required="" type="text"/>
+<input id="mother" placeholder="Mother's Name" required="" type="text"/>
+<input id="profession" placeholder="Profession/Sector" required="" type="text"/>
+<input id="qualification" placeholder="Highest Qualification" required="" type="text"/>
+<input id="place" placeholder="Place" required="" type="text"/>
+<input id="address" placeholder="Address" required="" type="text"/>
+<input id="city" placeholder="City" required="" type="text"/>
+<input id="state" placeholder="State" required="" type="text"/>
+<input id="country" placeholder="Country" required="" type="text"/>
+<input id="class10roll" placeholder="Class 10 Roll No." required="" type="text"/>
+<input id="class10stream" placeholder="Class 10 Stream/Subjects" required="" type="text"/>
+<input id="class12roll" placeholder="Class 12 Roll No." required="" type="text"/>
+<input id="class12stream" placeholder="Class 12 Stream/Subjects" required="" type="text"/>
+<div id="experienceContainer">
+<div class="experience-group">
+<input class="exp-sector" placeholder="Experience Sector" type="text"/>
+<input class="exp-duration" placeholder="Duration (Years/Months)" type="text"/>
+<textarea class="exp-details" placeholder="Details"></textarea>
+</div>
+</div>
+<button onclick="addExperience()" type="button">+ Add Experience</button>
+<textarea id="activities" placeholder="Extra Activities (Optional)"></textarea>
+<button type="submit">Download CV as PDF</button>
+</form>
+</div>
+</div>
 </section>
-
-<section id="contact">
-  <h2>Contact Me</h2>
-  <p>Email: <a href="mailto:sandeepsinghcena1@gmail.com">sandeepsinghcena1@gmail.com</a></p>
-  <p>GitHub: <a href="https://github.com/GodLSANDEEP06" target="_blank">github.com/GodLSANDEEP06</a></p>
+<section data-aos="fade-up" id="contact">
+<h2>Contact Me</h2>
+<p>Email: <a href="mailto:sandeepsinghcena1@gmail.com">sandeepsinghcena1@gmail.com</a></p>
+<p>GitHub: <a href="https://github.com/GodLSANDEEP06" target="_blank">github.com/GodLSANDEEP06</a></p>
 </section>
-
 <footer>
-  <p>&copy; 2025 Sandeep Singh. All Rights Reserved.</p>
+<p>© 2025 Sandeep Singh. All Rights Reserved.</p>
 </footer>
-
-</body>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script><script>AOS.init();</script></body>
 </html>

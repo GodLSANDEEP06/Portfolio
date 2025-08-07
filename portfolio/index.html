@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
+    header { background: linear-gradient(135deg, #333, #444); color: white; text-align: center; padding: 2.5rem 1rem; position: sticky; top: 0; z-index: 1000; }
+    header h1 { margin: 0; font-size: 2.5rem; }
+    header p { margin-top: 0.5rem; color: #ff9800; }
+    nav { margin-top: 1rem; }
+    nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
+    nav a:hover { color: #ff9800; }
+    section { padding: 2rem; max-width: 900px; margin: auto; background: white; margin-top: 1.5rem; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+    section h2 { text-align: center; margin-bottom: 1rem; }
+    .projects-container { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .project-card { background: #fafafa; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1 1 calc(45% - 1rem); }
+    .cv-form { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+    .cv-form input, .cv-form textarea { padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+    .cv-form button { padding: 10px; background: #ff9800; color: white; border: none; cursor: pointer; }
+    .cv-form button:hover { background: #e68900; }
+    .experience-group { border: 1px solid #ddd; padding: 10px; border-radius: 5px; margin-top: 5px; }
+    footer { background: #333; color: white; text-align: center; padding: 1rem; margin-top: 2rem; }
+    .chat-btn { position: fixed; bottom: 20px; right: 20px; background: #ff9800; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 2000; }
+    .chat-btn:hover { background: #e68900; }
+    .chat-window { position: fixed; bottom: 80px; right: 20px; width: 300px; height: 400px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: none; flex-direction: column; overflow: hidden; z-index: 2000; }
+    .chat-header { background: #ff9800; color: white; padding: 10px; text-align: center; font-weight: bold; }
+    .chat-box { flex: 1; padding: 10px; overflow-y: auto; background: #f9f9f9; }
+    .chat-message { margin: 5px 0; padding: 8px; border-radius: 5px; }
+    .user { background: #ff9800; color: white; align-self: flex-end; }
+    .bot { background: #e0e0e0; align-self: flex-start; }
+    .chat-input { display: flex; border-top: 1px solid #ddd; }
+    .chat-input input { flex: 1; padding: 10px; border: none; outline: none; }
+    .chat-input button { padding: 10px; background: #ff9800; border: none; color: white; cursor: pointer; }
+    .chat-input button:hover { background: #e68900; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Hi, Welcome to My Portfolio.</h1>
+  <p>Web Developer | Designer | Coder</p>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p>I'm a passionate web developer skilled in HTML, CSS, and JavaScript.  
+  I enjoy creating responsive, user-friendly websites and learning new technologies.</p>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects-container">
+
+    <!-- CV Builder -->
+    <div class="project-card">
+      <h3>CV Builder Tool</h3>
+      <form class="cv-form" onsubmit="generatePDF(event)">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="file" id="profileImage" accept="image/*">
+        <input type="text" id="father" placeholder="Father's Name" required>
+        <input type="text" id="mother" placeholder="Mother's Name" required>
+        <input type="text" id="profession" placeholder="Profession/Sector" required>
+        <input type="text" id="qualification" placeholder="Highest Qualification" required>
+
+        <!-- Address -->
+        <input type="text" id="place" placeholder="Place" required>
+        <input type="text" id="address" placeholder="Address" required>
+        <input type="text" id="city" placeholder="City" required>
+        <input type="text" id="state" placeholder="State" required>
+        <input type="text" id="country" placeholder="Country" required>
+
+        <!-- Class 10 -->
+        <input type="text" id="class10roll" placeholder="Class 10 Roll No." required>
+        <input type="text" id="class10stream" placeholder="Class 10 Stream/Subjects" required>
+
+        <!-- Class 12 -->
+        <input type="text" id="class12roll" placeholder="Class 12 Roll No." required>
+        <input type="text" id="class12stream" placeholder="Class 12 Stream/Subjects" required>
+
+        <!-- Work Experience -->
+        <div id="experienceContainer">
+          <div class="experience-group">
+            <input type="text" placeholder="Experience Sector" class="exp-sector">
+            <input type="text" placeholder="Duration (Years/Months)" class="exp-duration">
+            <textarea placeholder="Details" class="exp-details"></textarea>
+          </div>
+        </div>
+        <button type="button" onclick="addExperience()">+ Add Experience</button>
+
+        <textarea id="activities" placeholder="Extra Activities (Optional)"></textarea>
+        <button type="submit">Download CV as PDF</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact Me</h2>
+  <p>Email: <a href="mailto:sandeepsinghcena1@gmail.com">sandeepsinghcena1@gmail.com</a></p>
+  <p>GitHub: <a href="https://github.com/GodLSANDEEP06" target="_blank">github.com/GodLSANDEEP06</a></p>
+</section>
+
+<footer>
+  <p>&copy; 2025 Your Name. All Rights Reserved.</p>
+</footer>
+
+<!-- Chat Bot -->
+<button class="chat-btn" onclick="toggleChat()">💬</button>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">AI Bot Guide</div>
+  <div class="chat-box" id="chatBox">
+    <div class="chat-message bot">Hello! 👋 I’m your AI guide. How can I help you?</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Type your question...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+function addExperience() {
+  const container = document.getElementById('experienceContainer');
+  const div = document.createElement('div');
+  div.classList.add('experience-group');
+  div.innerHTML = `
+    <input type="text" placeholder="Experience Sector" class="exp-sector">
+    <input type="text" placeholder="Duration (Years/Months)" class="exp-duration">
+    <textarea placeholder="Details" class="exp-details"></textarea>
+  `;
+  container.appendChild(div);
+}
+
+async function generatePDF(event) {
+  event.preventDefault();
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  doc.setFont("times", "normal");
+
+  const capitalize = (txt) => txt ? txt.charAt(0).toUpperCase() + txt.slice(1) : "";
+
+  const name = capitalize(document.getElementById('name').value);
+  const father = capitalize(document.getElementById('father').value);
+  const mother = capitalize(document.getElementById('mother').value);
+  const profession = capitalize(document.getElementById('profession').value);
+  const qualification = capitalize(document.getElementById('qualification').value);
+
+  const place = capitalize(document.getElementById('place').value);
+  const address = capitalize(document.getElementById('address').value);
+  const city = capitalize(document.getElementById('city').value);
+  const state = capitalize(document.getElementById('state').value);
+  const country = capitalize(document.getElementById('country').value);
+
+  const class10roll = document.getElementById('class10roll').value;
+  const class10stream = capitalize(document.getElementById('class10stream').value);
+  const class12roll = document.getElementById('class12roll').value;
+  const class12stream = capitalize(document.getElementById('class12stream').value);
+
+  const activities = document.getElementById('activities').value.trim();
+  const profileImage = document.getElementById('profileImage').files[0];
+
+  let objective = profession.toLowerCase().includes("student") || profession.toLowerCase().includes("fresher")
+    ? "To start my career in a reputed organization where I can utilize my skills and grow professionally."
+    : "To leverage my experience and skills to contribute effectively to organizational growth.";
+
+  function sectionHeading(text, y) {
+    doc.setFontSize(14);
+    doc.setTextColor(255, 87, 34);
+    doc.text(text.toUpperCase(), 20, y);
+    doc.setDrawColor(255, 87, 34);
+    doc.line(20, y + 2, 190, y + 2);
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(12);
+  }
+
+  function createCV(imgData = null) {
+    doc.setFontSize(18);
+    doc.text("CURRICULUM VITAE", 105, 20, null, null, "center");
+    doc.line(20, 25, 190, 25);
+
+    if (imgData) doc.addImage(imgData, "JPEG", 140, 30, 50, 50);
+
+    let y = 40;
+    sectionHeading("Personal Details", y);
+    doc.text(`Name: ${name}`, 20, y += 7);
+    doc.text(`Father's Name: ${father}`, 20, y += 7);
+    doc.text(`Mother's Name: ${mother}`, 20, y += 7);
+    doc.text(`Profession: ${profession}`, 20, y += 7);
+    doc.text(`Qualification: ${qualification}`, 20, y += 7);
+
+    sectionHeading("Address", y += 10);
+    doc.text(`${place}, ${address}`, 20, y += 7);
+    doc.text(`${city}, ${state}, ${country}`, 20, y += 7);
+
+    sectionHeading("Education", y += 10);
+    doc.text(`Class 10 Roll: ${class10roll}`, 20, y += 7);
+    doc.text(`Stream: ${class10stream}`, 20, y += 7);
+    doc.text(`Class 12 Roll: ${class12roll}`, 20, y += 7);
+    doc.text(`Stream: ${class12stream}`, 20, y += 7);
+
+    sectionHeading("Objective", y += 10);
+    doc.text(objective, 20, y += 7, { maxWidth: 110 });
+
+    const expGroups = document.querySelectorAll(".experience-group");
+    if (expGroups.length > 0) {
+      sectionHeading("Experience", y += 10);
+      expGroups.forEach(group => {
+        const sector = capitalize(group.querySelector(".exp-sector").value);
+        const duration = group.querySelector(".exp-duration").value;
+        const details = capitalize(group.querySelector(".exp-details").value);
+        doc.text(`Sector: ${sector}`, 20, y += 7);
+        doc.text(`Duration: ${duration}`, 20, y += 7);
+        if (details) doc.text(`Details: ${details}`, 20, y += 7, { maxWidth: 110 });
+        y += 5;
+      });
+    }
+
+    if (activities) {
+      sectionHeading("Extra Activities", y += 10);
+      doc.text(activities, 20, y += 7, { maxWidth: 110 });
+    }
+
+    doc.save(`${name.replace(/\s+/g, "_")}_CV.pdf`);
+  }
+
+  if (profileImage) {
+    const reader = new FileReader();
+    reader.onload = e => createCV(e.target.result);
+    reader.readAsDataURL(profileImage);
+  } else {
+    createCV();
+  }
+}
+
+// Chat Bot
+function toggleChat() {
+  const chatWindow = document.getElementById('chatWindow');
+  chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+}
+function openChat() { document.getElementById('chatWindow').style.display = 'flex'; }
+function sendMessage() {
+  const input = document.getElementById('userInput');
+  const message = input.value.trim();
+  if (!message) return;
+  addMessage(message, 'user');
+  input.value = "";
+  setTimeout(() => {
+    addMessage(getBotReply(message), 'bot');
+  }, 500);
+}
+function addMessage(text, sender) {
+  const chatBox = document.getElementById('chatBox');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `chat-message ${sender}`;
+  msgDiv.textContent = text;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+function getBotReply(msg) {
+  msg = msg.toLowerCase();
+  if (msg.includes("about")) return "Check the About section for my details.";
+  if (msg.includes("project")) return "Visit the Projects section for my work.";
+  if (msg.includes("contact")) return "You can reach me via email or GitHub in Contact section.";
+  return "I can guide you around this portfolio site.";
+}
+</script>
+</body>
+</html>

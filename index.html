@@ -3,40 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+
+  <!-- ✅ SEO Meta Tags -->
+  <title>Portfolio of Sandeep Singh – Web Developer</title>
+  <meta name="description" content="I'm Sandeep Singh, a passionate web developer building responsive and creative websites. Check out my portfolio and CV builder tool.">
+  <meta name="keywords" content="Sandeep Singh, portfolio, web developer, CV builder, JavaScript, HTML, CSS">
+  <meta name="author" content="Sandeep Singh">
+
+  <!-- ✅ Social Sharing (Open Graph) -->
+  <meta property="og:title" content="Portfolio of Sandeep Singh – Web Developer">
+  <meta property="og:description" content="Explore my work, try out my CV Builder, and contact me.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://godlsandeep06.github.io/Portfolio/">
+  <meta property="og:image" content="https://godlsandeep06.github.io/Portfolio/images/preview.png">
+
+  <!-- ✅ Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Portfolio of Sandeep Singh – Web Developer">
+  <meta name="twitter:description" content="Creative developer portfolio and CV builder tool.">
+  <meta name="twitter:image" content="https://godlsandeep06.github.io/Portfolio/images/preview.png">
+
+  <!-- ✅ Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- ✅ jsPDF for PDF generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
-    header { background: linear-gradient(135deg, #333, #444); color: white; text-align: center; padding: 2.5rem 1rem; position: sticky; top: 0; z-index: 1000; }
-    header h1 { margin: 0; font-size: 2.5rem; }
-    header p { margin-top: 0.5rem; color: #ff9800; }
-    nav { margin-top: 1rem; }
-    nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
-    nav a:hover { color: #ff9800; }
-    section { padding: 2rem; max-width: 900px; margin: auto; background: white; margin-top: 1.5rem; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
-    section h2 { text-align: center; margin-bottom: 1rem; }
-    .projects-container { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
-    .project-card { background: #fafafa; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1 1 calc(45% - 1rem); }
-    .cv-form { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
-    .cv-form input, .cv-form textarea { padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
-    .cv-form button { padding: 10px; background: #ff9800; color: white; border: none; cursor: pointer; }
-    .cv-form button:hover { background: #e68900; }
-    .experience-group { border: 1px solid #ddd; padding: 10px; border-radius: 5px; margin-top: 5px; }
-    footer { background: #333; color: white; text-align: center; padding: 1rem; margin-top: 2rem; }
-    .chat-btn { position: fixed; bottom: 20px; right: 20px; background: #ff9800; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 2000; }
-    .chat-btn:hover { background: #e68900; }
-    .chat-window { position: fixed; bottom: 80px; right: 20px; width: 300px; height: 400px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: none; flex-direction: column; overflow: hidden; z-index: 2000; }
-    .chat-header { background: #ff9800; color: white; padding: 10px; text-align: center; font-weight: bold; }
-    .chat-box { flex: 1; padding: 10px; overflow-y: auto; background: #f9f9f9; }
-    .chat-message { margin: 5px 0; padding: 8px; border-radius: 5px; }
-    .user { background: #ff9800; color: white; align-self: flex-end; }
-    .bot { background: #e0e0e0; align-self: flex-start; }
-    .chat-input { display: flex; border-top: 1px solid #ddd; }
-    .chat-input input { flex: 1; padding: 10px; border: none; outline: none; }
-    .chat-input button { padding: 10px; background: #ff9800; border: none; color: white; cursor: pointer; }
-    .chat-input button:hover { background: #e68900; }
-  </style>
-</head>
+
+  <!-- ✅ AI Grammar Correction API (Placeholder for future integration) -->
+  <script>
+    async function correctGrammar(text) {
+      // This is a simulation. Replace this with a real AI/grammar API call if needed.
+      return text.replace(/teh/g, "the").replace(/i am/gi, "I am");
+    }
+  </script>
+
 <body>
 
 <header>
@@ -139,35 +139,37 @@ function addExperience() {
   container.appendChild(div);
 }
 
+
+async function correctFormFields() {
+  const fields = [
+    'name', 'father', 'mother', 'profession', 'qualification',
+    'place', 'address', 'city', 'state', 'country',
+    'class10stream', 'class12stream', 'activities'
+  ];
+  for (const id of fields) {
+    const el = document.getElementById(id);
+    if (el && el.value) {
+      el.value = await correctGrammar(el.value);
+    }
+  }
+  const expGroups = document.querySelectorAll(".experience-group");
+  for (const group of expGroups) {
+    const sector = group.querySelector(".exp-sector");
+    const details = group.querySelector(".exp-details");
+    if (sector && sector.value) sector.value = await correctGrammar(sector.value);
+    if (details && details.value) details.value = await correctGrammar(details.value);
+  }
+}
+
 async function generatePDF(event) {
   event.preventDefault();
-  const { jsPDF } = window.jspdf;
+  await correctFormFields();  // ✅ Correct form data before generating PDF
+
+  const {{ jsPDF }} = window.jspdf;
   const doc = new jsPDF();
   doc.setFont("times", "normal");
-
-  const capitalize = (txt) => txt ? txt.charAt(0).toUpperCase() + txt.slice(1) : "";
-
-  const name = capitalize(document.getElementById('name').value);
-  const father = capitalize(document.getElementById('father').value);
-  const mother = capitalize(document.getElementById('mother').value);
-  const profession = capitalize(document.getElementById('profession').value);
-  const qualification = capitalize(document.getElementById('qualification').value);
-
-  const place = capitalize(document.getElementById('place').value);
-  const address = capitalize(document.getElementById('address').value);
-  const city = capitalize(document.getElementById('city').value);
-  const state = capitalize(document.getElementById('state').value);
-  const country = capitalize(document.getElementById('country').value);
-
-  const class10roll = document.getElementById('class10roll').value;
-  const class10stream = capitalize(document.getElementById('class10stream').value);
-  const class12roll = document.getElementById('class12roll').value;
-  const class12stream = capitalize(document.getElementById('class12stream').value);
-
-  const activities = document.getElementById('activities').value.trim();
-  const profileImage = document.getElementById('profileImage').files[0];
-
-  let objective = profession.toLowerCase().includes("student") || profession.toLowerCase().includes("fresher")
+  ...
+let objective = profession.toLowerCase().includes("student") || profession.toLowerCase().includes("fresher")
     ? "To start my career in a reputed organization where I can utilize my skills and grow professionally."
     : "To leverage my experience and skills to contribute effectively to organizational growth.";
 

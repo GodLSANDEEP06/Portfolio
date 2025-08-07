@@ -1,42 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- ✅ SEO Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio of Sandeep Singh – Web Developer</title>
   <meta name="description" content="I'm Sandeep Singh, a passionate web developer building responsive and creative websites. Check out my portfolio and CV builder tool.">
   <meta name="keywords" content="Sandeep Singh, portfolio, web developer, CV builder, JavaScript, HTML, CSS">
   <meta name="author" content="Sandeep Singh">
-
-  <!-- ✅ Social Sharing (Open Graph) -->
-  <meta property="og:title" content="Portfolio of Sandeep Singh – Web Developer">
-  <meta property="og:description" content="Explore my work, try out my CV Builder, and contact me.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://godlsandeep06.github.io/Portfolio/">
-  <meta property="og:image" content="https://godlsandeep06.github.io/Portfolio/images/preview.png">
-
-  <!-- ✅ Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Portfolio of Sandeep Singh – Web Developer">
-  <meta name="twitter:description" content="Creative developer portfolio and CV builder tool.">
-  <meta name="twitter:image" content="https://godlsandeep06.github.io/Portfolio/images/preview.png">
-
-  <!-- ✅ Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-  <!-- ✅ jsPDF for PDF generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #ff9800;
+    }
+    nav {
+      margin-top: 1rem;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #ff9800;
+    }
+    section {
+      background: rgba(0, 0, 0, 0.6);
+      margin: 2rem auto;
+      padding: 2rem;
+      max-width: 900px;
+      border-radius: 10px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .projects-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .project-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 8px;
+      flex: 1 1 100%;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      background-color: #ff9800;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e68900;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin-top: 2rem;
+    }
+    a {
+      color: #4fc3f7;
+    }
+  </style>
 
-  <!-- ✅ AI Grammar Correction API (Placeholder for future integration) -->
   <script>
     async function correctGrammar(text) {
-      // This is a simulation. Replace this with a real AI/grammar API call if needed.
-      return text.replace(/teh/g, "the").replace(/i am/gi, "I am");
+      return text.replace(/\bteh\b/g, "the").replace(/\bi am\b/gi, "I am");
+    }
+
+    async function correctFormFields() {
+      const fields = [
+        'name', 'father', 'mother', 'profession', 'qualification',
+        'place', 'address', 'city', 'state', 'country',
+        'class10stream', 'class12stream', 'activities'
+      ];
+      for (const id of fields) {
+        const el = document.getElementById(id);
+        if (el && el.value) {
+          el.value = await correctGrammar(el.value);
+        }
+      }
+      const expGroups = document.querySelectorAll(".experience-group");
+      for (const group of expGroups) {
+        const sector = group.querySelector(".exp-sector");
+        const details = group.querySelector(".exp-details");
+        if (sector && sector.value) sector.value = await correctGrammar(sector.value);
+        if (details && details.value) details.value = await correctGrammar(details.value);
+      }
+    }
+
+    async function generatePDF(event) {
+      event.preventDefault();
+      await correctFormFields();
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFont("times", "normal");
+      doc.text("CV Generated - Demo Text", 10, 10);
+      doc.save("CV.pdf");
+    }
+
+    function addExperience() {
+      const container = document.getElementById('experienceContainer');
+      const div = document.createElement('div');
+      div.classList.add('experience-group');
+      div.innerHTML = `
+        <input type="text" placeholder="Experience Sector" class="exp-sector">
+        <input type="text" placeholder="Duration (Years/Months)" class="exp-duration">
+        <textarea placeholder="Details" class="exp-details"></textarea>
+      `;
+      container.appendChild(div);
     }
   </script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
 <body>
 
 <header>
@@ -58,8 +164,6 @@
 <section id="projects">
   <h2>Projects</h2>
   <div class="projects-container">
-
-    <!-- CV Builder -->
     <div class="project-card">
       <h3>CV Builder Tool</h3>
       <form class="cv-form" onsubmit="generatePDF(event)">
@@ -69,23 +173,15 @@
         <input type="text" id="mother" placeholder="Mother's Name" required>
         <input type="text" id="profession" placeholder="Profession/Sector" required>
         <input type="text" id="qualification" placeholder="Highest Qualification" required>
-
-        <!-- Address -->
         <input type="text" id="place" placeholder="Place" required>
         <input type="text" id="address" placeholder="Address" required>
         <input type="text" id="city" placeholder="City" required>
         <input type="text" id="state" placeholder="State" required>
         <input type="text" id="country" placeholder="Country" required>
-
-        <!-- Class 10 -->
         <input type="text" id="class10roll" placeholder="Class 10 Roll No." required>
         <input type="text" id="class10stream" placeholder="Class 10 Stream/Subjects" required>
-
-        <!-- Class 12 -->
         <input type="text" id="class12roll" placeholder="Class 12 Roll No." required>
         <input type="text" id="class12stream" placeholder="Class 12 Stream/Subjects" required>
-
-        <!-- Work Experience -->
         <div id="experienceContainer">
           <div class="experience-group">
             <input type="text" placeholder="Experience Sector" class="exp-sector">
@@ -94,12 +190,10 @@
           </div>
         </div>
         <button type="button" onclick="addExperience()">+ Add Experience</button>
-
         <textarea id="activities" placeholder="Extra Activities (Optional)"></textarea>
         <button type="submit">Download CV as PDF</button>
       </form>
     </div>
-
   </div>
 </section>
 
@@ -110,169 +204,8 @@
 </section>
 
 <footer>
-  <p>&copy; 2025 Your Name. All Rights Reserved.</p>
+  <p>&copy; 2025 Sandeep Singh. All Rights Reserved.</p>
 </footer>
 
-<!-- Chat Bot -->
-<button class="chat-btn" onclick="toggleChat()">💬</button>
-<div class="chat-window" id="chatWindow">
-  <div class="chat-header">AI Bot Guide</div>
-  <div class="chat-box" id="chatBox">
-    <div class="chat-message bot">Hello! 👋 I’m your AI guide. How can I help you?</div>
-  </div>
-  <div class="chat-input">
-    <input type="text" id="userInput" placeholder="Type your question...">
-    <button onclick="sendMessage()">Send</button>
-  </div>
-</div>
-
-<script>
-function addExperience() {
-  const container = document.getElementById('experienceContainer');
-  const div = document.createElement('div');
-  div.classList.add('experience-group');
-  div.innerHTML = `
-    <input type="text" placeholder="Experience Sector" class="exp-sector">
-    <input type="text" placeholder="Duration (Years/Months)" class="exp-duration">
-    <textarea placeholder="Details" class="exp-details"></textarea>
-  `;
-  container.appendChild(div);
-}
-
-
-async function correctFormFields() {
-  const fields = [
-    'name', 'father', 'mother', 'profession', 'qualification',
-    'place', 'address', 'city', 'state', 'country',
-    'class10stream', 'class12stream', 'activities'
-  ];
-  for (const id of fields) {
-    const el = document.getElementById(id);
-    if (el && el.value) {
-      el.value = await correctGrammar(el.value);
-    }
-  }
-  const expGroups = document.querySelectorAll(".experience-group");
-  for (const group of expGroups) {
-    const sector = group.querySelector(".exp-sector");
-    const details = group.querySelector(".exp-details");
-    if (sector && sector.value) sector.value = await correctGrammar(sector.value);
-    if (details && details.value) details.value = await correctGrammar(details.value);
-  }
-}
-
-async function generatePDF(event) {
-  event.preventDefault();
-  await correctFormFields();  // ✅ Correct form data before generating PDF
-
-  const {{ jsPDF }} = window.jspdf;
-  const doc = new jsPDF();
-  doc.setFont("times", "normal");
-  ...
-let objective = profession.toLowerCase().includes("student") || profession.toLowerCase().includes("fresher")
-    ? "To start my career in a reputed organization where I can utilize my skills and grow professionally."
-    : "To leverage my experience and skills to contribute effectively to organizational growth.";
-
-  function sectionHeading(text, y) {
-    doc.setFontSize(14);
-    doc.setTextColor(255, 87, 34);
-    doc.text(text.toUpperCase(), 20, y);
-    doc.setDrawColor(255, 87, 34);
-    doc.line(20, y + 2, 190, y + 2);
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(12);
-  }
-
-  function createCV(imgData = null) {
-    doc.setFontSize(18);
-    doc.text("CURRICULUM VITAE", 105, 20, null, null, "center");
-    doc.line(20, 25, 190, 25);
-
-    if (imgData) doc.addImage(imgData, "JPEG", 140, 30, 50, 50);
-
-    let y = 40;
-    sectionHeading("Personal Details", y);
-    doc.text(`Name: ${name}`, 20, y += 7);
-    doc.text(`Father's Name: ${father}`, 20, y += 7);
-    doc.text(`Mother's Name: ${mother}`, 20, y += 7);
-    doc.text(`Profession: ${profession}`, 20, y += 7);
-    doc.text(`Qualification: ${qualification}`, 20, y += 7);
-
-    sectionHeading("Address", y += 10);
-    doc.text(`${place}, ${address}`, 20, y += 7);
-    doc.text(`${city}, ${state}, ${country}`, 20, y += 7);
-
-    sectionHeading("Education", y += 10);
-    doc.text(`Class 10 Roll: ${class10roll}`, 20, y += 7);
-    doc.text(`Stream: ${class10stream}`, 20, y += 7);
-    doc.text(`Class 12 Roll: ${class12roll}`, 20, y += 7);
-    doc.text(`Stream: ${class12stream}`, 20, y += 7);
-
-    sectionHeading("Objective", y += 10);
-    doc.text(objective, 20, y += 7, { maxWidth: 110 });
-
-    const expGroups = document.querySelectorAll(".experience-group");
-    if (expGroups.length > 0) {
-      sectionHeading("Experience", y += 10);
-      expGroups.forEach(group => {
-        const sector = capitalize(group.querySelector(".exp-sector").value);
-        const duration = group.querySelector(".exp-duration").value;
-        const details = capitalize(group.querySelector(".exp-details").value);
-        doc.text(`Sector: ${sector}`, 20, y += 7);
-        doc.text(`Duration: ${duration}`, 20, y += 7);
-        if (details) doc.text(`Details: ${details}`, 20, y += 7, { maxWidth: 110 });
-        y += 5;
-      });
-    }
-
-    if (activities) {
-      sectionHeading("Extra Activities", y += 10);
-      doc.text(activities, 20, y += 7, { maxWidth: 110 });
-    }
-
-    doc.save(`${name.replace(/\s+/g, "_")}_CV.pdf`);
-  }
-
-  if (profileImage) {
-    const reader = new FileReader();
-    reader.onload = e => createCV(e.target.result);
-    reader.readAsDataURL(profileImage);
-  } else {
-    createCV();
-  }
-}
-
-// Chat Bot
-function toggleChat() {
-  const chatWindow = document.getElementById('chatWindow');
-  chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
-}
-function openChat() { document.getElementById('chatWindow').style.display = 'flex'; }
-function sendMessage() {
-  const input = document.getElementById('userInput');
-  const message = input.value.trim();
-  if (!message) return;
-  addMessage(message, 'user');
-  input.value = "";
-  setTimeout(() => {
-    addMessage(getBotReply(message), 'bot');
-  }, 500);
-}
-function addMessage(text, sender) {
-  const chatBox = document.getElementById('chatBox');
-  const msgDiv = document.createElement('div');
-  msgDiv.className = `chat-message ${sender}`;
-  msgDiv.textContent = text;
-  chatBox.appendChild(msgDiv);
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-function getBotReply(msg) {
-  msg = msg.toLowerCase();
-  if (msg.includes("about")) return "Check the About section for my details.";
-  if (msg.includes("project")) return "Visit the Projects section for my work.";
-  if (msg.includes("contact")) return "You can reach me via email or GitHub in Contact section.";
-  return "I can guide you around this portfolio site.";
-}
-</script>
 </body>
 </html>
